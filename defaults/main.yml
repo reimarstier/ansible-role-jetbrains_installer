@@ -1,0 +1,6 @@
+---
+jetbrains_installer_bin_dir: "/opt/bin"
+jetbrains_installer_dir: "/opt"
+jetbrains_installer_remove_old_tools: True
+jetbrains_installer_apps:
+- "IntelliJ IDEA Community"

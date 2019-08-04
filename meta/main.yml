@@ -1,0 +1,23 @@
+galaxy_info:
+  author: Reimar Stier
+  description: Install Jetbrains IDEs
+  company: your company (optional)
+  license: BSD
+
+  min_ansible_version: 2.4
+
+  platforms:
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+
+  galaxy_tags:
+  - development
+  - jetbrains
+  categories:
+  - development
+
+dependencies: []

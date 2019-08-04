@@ -1,0 +1,36 @@
+- debug: msg="{{ tool_config }}"
+
+- name: "Extract meta data for tool {{ tool_config['name'] }}"
+  set_fact:
+    tool_name: "{{ tool_config.name }}"
+    tool_info: "{{ jetbrains_releases | selectattr('name', 'equalto', tool_config['name']) | first }}"
+
+- name: Jetbrains tool definitions (version, download url, directory)
+  set_fact:
+    jb_tool:
+      name: "{{ tool_info['name'] }}"
+      download: "{{ tool_info['download'] }}"
+      dirname: "{{ tool_info['download'] | basename | replace('.tar.gz', '') }}"
+      basename: "{{ tool_info['download'] | basename }}"
+      binary: "{{ tool_info['binary'] | default() }}"
+      link_name: "{{ tool_info['symlink'] | default() }}"
+      version: "{{ tool_info['version'] }}"
+
+- name: Tool prefix for deletion
+  set_fact:
+    tool_dir_prefix: "{{ jb_tool.dirname | replace(jb_tool.version, '') }}"
+
+- debug: msg="{{ jb_tool.basename }}"
+
+- name: Check if tool is already installed
+  stat:
+    path: "{{ jetbrains_installer_dir }}/{{ jb_tool.dirname }}"
+    get_md5: no
+  register: _tool_exists
+
+- debug: msg="JetBrains {{ tool_name }} {{ _tool_exists.stat }}"
+
+- include_tasks: 11_install_tool.yml
+
+- include_tasks: 29_cleanup_old_tools.yml
+
