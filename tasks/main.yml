@@ -1,11 +1,6 @@
 ---
 - include_tasks: 00_pre_checks.yml
 
-- name: Install required python package for lookup
-  apt:
-    pkg: ["python-requests"]
-    state: present
-
 - name: Lookup jetbrains releases
   set_fact:
     jetbrains_releases: "{{ lookup('jetbrains_releases') }}"

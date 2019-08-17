@@ -2,7 +2,7 @@
 import copy
 import json
 
-import requests
+from ansible.module_utils.urls import open_url
 from ansible.plugins.lookup import LookupBase
 
 JETBRAINS_RELEASES = "https://data.services.jetbrains.com/products/releases?code={product_codes}&latest=true&type=release&build="
@@ -105,9 +105,8 @@ def determine_binary_path(code):
 
 def fetch_releases_data(platform="linux"):
     product_codes = ",".join(APP_CODES.keys())
-    response = requests.get(
-        JETBRAINS_RELEASES.format(product_codes=product_codes))
-    releases = response.json()
+    response = open_url(JETBRAINS_RELEASES.format(product_codes=product_codes), method="GET")
+    releases = json.loads(response.read())
 
     result = []
     for code, meta in releases.items():
