@@ -8,7 +8,8 @@
   register: _archive_contents
   when: not _tool_exists.stat.exists
 
-- set_fact:
+- name: Extract folder name from archive
+  set_fact:
     extracted_folder: "{{ _archive_contents['files'][0].split('/')[0] }}"
   when: not _tool_exists.stat.exists
 
@@ -24,14 +25,14 @@
   file:
     path: "{{ jetbrains_installer_dir }}/bin/"
     state: directory
-  when: jb_tool.binary != ""
+  when: jb_tool.binary
 
 - name: Create symlink for executable
   file:
     src: "{{ jetbrains_installer_dir }}/{{ jb_tool.dirname }}/bin/{{ jb_tool.binary }}"
     dest: "{{ jetbrains_installer_dir }}/bin/{{ jb_tool.link_name }}"
     state: "link"
-  when: jb_tool.binary != ""
+  when: jb_tool.binary
 
 - name: Create desktop file
   template:

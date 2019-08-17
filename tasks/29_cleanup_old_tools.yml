@@ -6,10 +6,12 @@
     file_type: 'directory'
   register: _old_installation
 
-- set_fact:
+- name: extract paths from found installations dictionary
+  set_fact:
     tool_install_paths: "{{ _old_installation.files | map(attribute='path') | list }}"
 
-- set_fact:
+- name: remove the current version from the list of found installations
+  set_fact:
     tool_old_paths: "{{ tool_install_paths | reject('search', jb_tool.version) | list }}"
 
 - debug: msg="Removing {{ tool_old_paths }}"
