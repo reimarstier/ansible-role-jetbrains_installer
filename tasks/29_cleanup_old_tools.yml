@@ -1,3 +1,4 @@
+---
 - name: Find old installations of given tool
   find:
     paths: '{{ jetbrains_installer_dir }}'

@@ -1,9 +1,10 @@
+---
 - name: Download tool archive
   unarchive:
     src: "{{ jb_tool.download }}"
     dest: "{{ jetbrains_installer_dir }}/"
-    remote_src: yes
-    list_files: yes
+    remote_src: true
+    list_files: true
   register: _archive_contents
   when: not _tool_exists.stat.exists
 

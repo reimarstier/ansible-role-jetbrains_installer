@@ -1,3 +1,4 @@
+---
 - debug: msg="{{ tool_config }}"
 
 - name: "Extract meta data for tool {{ tool_config['name'] }}"
@@ -25,7 +26,7 @@
 - name: Check if tool is already installed
   stat:
     path: "{{ jetbrains_installer_dir }}/{{ jb_tool.dirname }}"
-    get_md5: no
+    get_md5: false
   register: _tool_exists
 
 - debug: msg="JetBrains {{ tool_name }} {{ _tool_exists.stat }}"
@@ -33,4 +34,3 @@
 - include_tasks: 11_install_tool.yml
 
 - include_tasks: 29_cleanup_old_tools.yml
-
