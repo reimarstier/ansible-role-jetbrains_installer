@@ -15,7 +15,7 @@ See example playbook below.
   gather_facts: True
   vars:
     username: 'me'
-    jetbrains_installer:
+    jetbrains_installer_apps:
     - name: "IntelliJ IDEA Community"
     - name: "PyCharm Community"
     - name: "Webstorm"

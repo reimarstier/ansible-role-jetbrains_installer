@@ -13,6 +13,6 @@
 - debug: msg="{{ jetbrains_releases }}"
 
 - include_tasks: 10_select_tool.yml
-  loop: "{{ jetbrains_installer }}"
+  loop: "{{ jetbrains_installer_apps }}"
   loop_control:
     loop_var: tool_config
