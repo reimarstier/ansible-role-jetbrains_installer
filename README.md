@@ -1,5 +1,7 @@
-# Install Jetbrains Ansible Role
-This ansible role is able to install a list of Jetbrains Tools.
+# Install Jetbrains Tools (Ansible Role)
+[![Build Status](https://travis-ci.com/reimarstier/ansible-role-jetbrains_installer.svg?branch=master)](https://travis-ci.com/reimarstier/ansible-role-jetbrains_installer)
+
+This ansible role installs a given list of Jetbrains tools.
 * The latest version of the respective tool will be fetched from the jetbrains data services.
 * Tools will be installed to `/opt`.
 * Old versions will be automatically removed by default.
