@@ -4,6 +4,7 @@ galaxy_info:
   description: Install Jetbrains IDEs
   company: "No company of its own"
   license: BSD
+  role_name: "jetbrains_installer"
 
   min_ansible_version: 2.4
 

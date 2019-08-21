@@ -16,7 +16,6 @@ See example playbook below.
   become: true
   gather_facts: True
   vars:
-    username: 'me'
     jetbrains_installer_apps:
     - name: "IntelliJ IDEA Community"
     - name: "PyCharm Community"
