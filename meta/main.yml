@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Reimar Stier
-  description: Install Jetbrains IDEs
+  description: Always install the newest Jetbrains IDEs
   company: "No company of its own"
   license: BSD
   role_name: "jetbrains_installer"
