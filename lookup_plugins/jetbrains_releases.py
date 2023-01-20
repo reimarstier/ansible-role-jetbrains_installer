@@ -63,13 +63,9 @@ APP_NAMES = {
     "PCE": "pycharm"
 }
 
-binary_paths = {
+binary_paths_override = {
     "IIU": "idea.sh",
     "IIC": "idea.sh",
-    "PCC": "pycharm.sh",
-    "PCP": "pycharm.sh",
-    "WS": "webstorm.sh",
-    "RM": "rubymine.sh",
 }
 
 
@@ -96,11 +92,14 @@ def extract_download_link(meta, platform):
 def determine_binary_path(code):
     try:
         return {
-            "binary": binary_paths[code],
+            "binary": binary_paths_override[code],
             "symlink": APP_NAMES[code],
         }
     except KeyError:
-        return {}
+        return {
+            "binary": f"{APP_NAMES[code]}.sh",
+            "symlink": APP_NAMES[code],
+        }
 
 
 def fetch_releases_data(platform="linux"):
