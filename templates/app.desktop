@@ -7,3 +7,4 @@ Exec="{{ jetbrains_installer_dir }}/{{ jb_tool.dirname }}/bin/{{ jb_tool.binary 
 Comment={{ jb_tool.link_name }} for Professional Developers
 Categories=Development;IDE;
 Terminal=false
+StartupWMClass=jetbrains-{{ jb_tool.link_name }}
