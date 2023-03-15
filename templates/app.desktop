@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Name={{ jb_tool.name }}
-Icon="{{ jetbrains_installer_dir }}/{{ jb_tool.dirname }}/bin/{{ jb_tool.link_name }}.svg"
+Icon={{ jetbrains_installer_dir }}/{{ jb_tool.dirname }}/bin/{{ jb_tool.image_name }}
 Exec="{{ jetbrains_installer_dir }}/{{ jb_tool.dirname }}/bin/{{ jb_tool.binary }}" %f
 Comment={{ jb_tool.link_name }} for Professional Developers
 Categories=Development;IDE;

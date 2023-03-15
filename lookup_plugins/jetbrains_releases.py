@@ -68,6 +68,10 @@ binary_paths_override = {
     "IIC": "idea.sh",
 }
 
+image_paths_override = {
+    "IIU": "idea.png",
+    "IIC": "idea.png",
+}
 
 def clean_meta_data(meta):
     keep = copy.copy(meta)
@@ -89,19 +93,6 @@ def extract_download_link(meta, platform):
     return downloads
 
 
-def determine_binary_path(code):
-    try:
-        return {
-            "binary": binary_paths_override[code],
-            "symlink": APP_NAMES[code],
-        }
-    except KeyError:
-        return {
-            "binary": f"{APP_NAMES[code]}.sh",
-            "symlink": APP_NAMES[code],
-        }
-
-
 def fetch_releases_data(platform="linux"):
     product_codes = ",".join(APP_CODES.keys())
     response = open_url(JETBRAINS_RELEASES.format(product_codes=product_codes), method="GET")
@@ -112,10 +103,17 @@ def fetch_releases_data(platform="linux"):
         app = {
             "name": APP_CODES[code],
             "code": code,
+            "binary": f"{APP_NAMES[code]}.sh",
+            "symlink": APP_NAMES[code],
+            "image_name": f"{APP_NAMES[code]}.png"
         }
         app.update(clean_meta_data(meta[0]))
         app.update(extract_download_link(meta[0], platform))
-        app.update(determine_binary_path(code))
+        if code in image_paths_override:
+            app["image_name"] = image_paths_override[code]
+        if code in binary_paths_override:
+            app["binary"] = binary_paths_override[code]
+
         result.append(app)
     return result
 
