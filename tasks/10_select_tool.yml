@@ -15,6 +15,7 @@
       basename: "{{ tool_info['download'] | basename }}"
       binary: "{{ tool_info['binary'] | default() }}"
       link_name: "{{ tool_info['symlink'] | default() }}"
+      image_name: "{{ tool_info['image_name'] | default() }}"
       version: "{{ tool_info['version'] }}"
 
 - name: Tool prefix for deletion
