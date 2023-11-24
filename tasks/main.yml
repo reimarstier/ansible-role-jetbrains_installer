@@ -5,7 +5,8 @@
   set_fact:
     jetbrains_releases: "{{ lookup('jetbrains_releases') }}"
 
-- debug: msg="{{ jetbrains_releases }}"
+- name: Current jetbrains latest releases list
+  debug: msg="{{ jetbrains_releases }}"
 
 - include_tasks: 10_select_tool.yml
   loop: "{{ jetbrains_installer_apps }}"

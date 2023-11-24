@@ -5,9 +5,10 @@ import json
 from ansible.module_utils.urls import open_url
 from ansible.plugins.lookup import LookupBase
 
-JETBRAINS_RELEASES = "https://data.services.jetbrains.com/products/releases?code={product_codes}&latest=true&type=release&build="
+JETBRAINS_STABLE_RELEASES = "https://data.services.jetbrains.com/products/releases?code={product_codes}&latest=true&type=release&build="
+JETBRAINS_EAP_RELEASES = "https://data.services.jetbrains.com/products/releases?code={product_codes}&latest=true&type=rc,eap,release&build="
 
-APP_CODES = {
+APP_CODES_STABLE = {
     "TBA": "Toolbox App",
     "IIU": "IntelliJ IDEA Ultimate",
     "IIC": "IntelliJ IDEA Community",
@@ -22,17 +23,11 @@ APP_CODES = {
     "RM": "RubyMine",
     "AC": "AppCode",
     "GO": "GoLand",
-    "RC": "ReSharper C++",
-    "DP": "ReSharper DotTrace",
-    "DM": "ReSharper DotMemory",
-    "DC": "ReSharper DotCover",
-    "DPK": "ReSharper DotPeek",
-    "YTD": "YouTrack",
     "TC": "TeamCity",
-    "US": "Upsource",
     "HB": "Hub",
     "MPS": "MPS",
-    "PCE": "PyCharm Edu"
+    "PCE": "PyCharm Edu",
+    "RR": "rustrover",
 }
 
 APP_NAMES = {
@@ -50,17 +45,15 @@ APP_NAMES = {
     "RM": "rubymine",
     "AC": "appcode",
     "GO": "goland",
-    "RC": "resharper",
-    "DP": "resharper",
-    "DM": "resharper",
-    "DC": "resharper",
-    "DPK": "resharper",
-    "YTD": "youtrack",
     "TC": "teamcity",
-    "US": "upsource",
     "HB": "hub",
     "MPS": "mps",
-    "PCE": "pycharm"
+    "PCE": "pycharm",
+    "RR": "rustrover",
+}
+
+APP_CODES_EAP = {
+    "RR": "RustRover",
 }
 
 binary_paths_override = {
@@ -94,27 +87,33 @@ def extract_download_link(meta, platform):
 
 
 def fetch_releases_data(platform="linux"):
-    product_codes = ",".join(APP_CODES.keys())
-    response = open_url(JETBRAINS_RELEASES.format(product_codes=product_codes), method="GET")
-    releases = json.loads(response.read())
+    product_codes_stable = ",".join(APP_CODES_STABLE.keys())
+    response_stable = open_url(JETBRAINS_STABLE_RELEASES.format(product_codes=product_codes_stable), method="GET")
+
+    product_codes_eap = ",".join(APP_CODES_EAP.keys())
+    response_eap = open_url(JETBRAINS_EAP_RELEASES.format(product_codes=product_codes_eap), method="GET")
+    releases = json.loads(response_stable.read())
+    releases_eap = json.loads(response_eap.read())
+    releases.update(releases_eap)
 
     result = []
     for code, meta in releases.items():
         app = {
-            "name": APP_CODES[code],
+            "name": APP_CODES_STABLE[code],
             "code": code,
             "binary": f"{APP_NAMES[code]}.sh",
             "symlink": APP_NAMES[code],
             "image_name": f"{APP_NAMES[code]}.png"
         }
-        app.update(clean_meta_data(meta[0]))
-        app.update(extract_download_link(meta[0], platform))
-        if code in image_paths_override:
-            app["image_name"] = image_paths_override[code]
-        if code in binary_paths_override:
-            app["binary"] = binary_paths_override[code]
+        if len(meta) > 0:
+            app.update(clean_meta_data(meta[0]))
+            app.update(extract_download_link(meta[0], platform))
+            if code in image_paths_override:
+                app["image_name"] = image_paths_override[code]
+            if code in binary_paths_override:
+                app["binary"] = binary_paths_override[code]
 
-        result.append(app)
+            result.append(app)
     return result
 
 

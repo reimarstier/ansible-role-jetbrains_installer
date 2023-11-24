@@ -5,7 +5,8 @@ This ansible role installs a given list of Jetbrains tools.
 * The latest version of the respective tool will be fetched from the jetbrains data services.
 * Tools will be installed to `/opt` (configurable by jetbrains_installer_dir).
 * Old versions will be automatically removed by default.
-* For a full list and the `correct` names take a look at the APP_CODES definition in the [lookup plugin](https://github.com/reimarstier/ansible-role-jetbrains_installer/blob/master/lookup_plugins/jetbrains_releases.py#L10).
+* For a full list and the `correct` names take a look at the APP_CODES_STABLE definition in the [lookup plugin](https://github.com/reimarstier/ansible-role-jetbrains_installer/blob/master/lookup_plugins/jetbrains_releases.py#L11).
+* And for early access programs (EAP), e.g. RustRover, take a look at the JETBRAINS_EAP_RELEASES definition in the [lookup plugin](https://github.com/reimarstier/ansible-role-jetbrains_installer/blob/master/lookup_plugins/jetbrains_releases.py#L54).
 Simply put the name of the tool (as defined in the update URLs) in the `jetbrains_installer` list.
 See example playbook below.
 
@@ -23,6 +24,7 @@ See example playbook below.
     - name: "Webstorm"
     - name: "RubyMine"
     - name: "GoLand"
+    # parameters that may be overridden for other installation directory
     jetbrains_installer_bin_dir: "/opt/bin"
     jetbrains_installer_dir: "/opt"
     jetbrains_installer_remove_old_tools: True
