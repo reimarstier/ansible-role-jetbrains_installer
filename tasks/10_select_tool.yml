@@ -17,12 +17,14 @@
       link_name: "{{ tool_info['symlink'] | default() }}"
       image_name: "{{ tool_info['image_name'] | default() }}"
       version: "{{ tool_info['version'] }}"
+      build: "{{ tool_info['build'] }}"
 
 - name: Tool prefix for deletion
   set_fact:
     tool_dir_prefix: "{{ jb_tool.dirname | replace(jb_tool.version, '') }}"
 
-- debug: msg="{{ jb_tool.basename }}"
+- name: Jetbrains tool to be installed
+  debug: msg="{{ jb_tool }}"
 
 - name: Check if tool is already installed
   stat:
@@ -30,7 +32,8 @@
     get_md5: false
   register: _tool_exists
 
-- debug: msg="JetBrains {{ tool_name }} {{ _tool_exists.stat }}"
+- name: Show if tool is already installed
+  debug: msg="JetBrains {{ tool_name }} {{ _tool_exists.stat }}"
 
 - include_tasks: 11_install_tool.yml
 

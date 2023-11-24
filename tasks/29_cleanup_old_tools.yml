@@ -12,9 +12,10 @@
 
 - name: remove the current version from the list of found installations
   set_fact:
-    tool_old_paths: "{{ tool_install_paths | reject('search', jb_tool.version) | list }}"
+    tool_old_paths: "{{ tool_install_paths | reject('search', jb_tool.version) | reject('search', jb_tool.build) | list }}"
 
-- debug: msg="Removing {{ tool_old_paths }}"
+- name: Removing the following tool paths
+  debug: msg="Removing {{ tool_old_paths }}"
 
 - name: Remove old installations
   file:
