@@ -2,7 +2,7 @@
 - name: check if app folder exists
   stat:
     path: "{{ jetbrains_installer_dir }}"
-    get_md5: false
+    get_checksum: false
   register: _check_dir
   loop: ["{{ jetbrains_installer_dir }}"]
   failed_when: not _check_dir.stat.exists

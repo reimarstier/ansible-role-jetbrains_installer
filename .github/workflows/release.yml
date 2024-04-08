@@ -19,5 +19,7 @@ jobs:
         run: pip3 install ansible-core
 
       - name: Trigger a new import on Galaxy.
+        # https://docs.ansible.com/ansible/latest/galaxy/dev_guide.html#authenticate-with-galaxy
+        # https://galaxy.ansible.com/ui/token/ Collections > API Token -> Load token
         run: >-
           ansible-galaxy role import --api-key ${{ secrets.GALAXY_API_KEY }} ${{ github.event.repository.owner.name }} ${{ github.event.repository.name }}

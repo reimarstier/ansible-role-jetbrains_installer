@@ -29,7 +29,7 @@
 - name: Check if tool is already installed
   stat:
     path: "{{ jetbrains_installer_dir }}/{{ jb_tool.dirname }}"
-    get_md5: false
+    get_checksum: false
   register: _tool_exists
 
 - name: Show if tool is already installed
