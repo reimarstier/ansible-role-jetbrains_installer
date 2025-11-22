@@ -101,7 +101,7 @@ def fetch_releases_data(platform="linux"):
         app = {
             "name": APP_CODES_STABLE[code],
             "code": code,
-            "binary": f"{APP_NAMES[code]}.sh",
+            "binary": f"{APP_NAMES[code]}",
             "symlink": APP_NAMES[code],
             "image_name": f"{APP_NAMES[code]}.png"
         }
