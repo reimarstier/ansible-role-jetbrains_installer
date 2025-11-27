@@ -50,6 +50,11 @@ jobs:
         with:
           path: 'reimarstier.jetbrains_installer'
 
+      - name: Copy role to expected location for molecule
+        run: |
+          mkdir -p molecule/default/roles
+          rsync -aP --delete --delete-excluded --exclude=.idea/ --exclude=.venv/ --exclude=.git/ --exclude=molecule/ ./ molecule/default/roles/reimarstier.jetbrains_installer/
+
       - name: Set up Python 3.
         uses: actions/setup-python@v5
         with:
