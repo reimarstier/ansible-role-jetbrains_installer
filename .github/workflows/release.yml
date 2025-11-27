@@ -1,6 +1,9 @@
-on:
+---
+name: Release
+'on':
   push:
-    branches: [ "master" ]
+    tags:
+      - 'v*'
 
 jobs:
   release:
@@ -8,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.13'  # Can't go to 3.14+ until Ansible 13.x
 
       - name: Install Ansible.
         run: pip3 install ansible-core

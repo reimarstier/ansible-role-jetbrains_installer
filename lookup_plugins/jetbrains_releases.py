@@ -90,11 +90,12 @@ def fetch_releases_data(platform="linux"):
     product_codes_stable = ",".join(APP_CODES_STABLE.keys())
     response_stable = open_url(JETBRAINS_STABLE_RELEASES.format(product_codes=product_codes_stable), method="GET")
 
-    product_codes_eap = ",".join(APP_CODES_EAP.keys())
-    response_eap = open_url(JETBRAINS_EAP_RELEASES.format(product_codes=product_codes_eap), method="GET")
     releases = json.loads(response_stable.read())
-    releases_eap = json.loads(response_eap.read())
-    releases.update(releases_eap)
+    # TODO: Early access program releases should not overwrite existing
+    # product_codes_eap = ",".join(APP_CODES_EAP.keys())
+    # response_eap = open_url(JETBRAINS_EAP_RELEASES.format(product_codes=product_codes_eap), method="GET")
+    # releases_eap = json.loads(response_eap.read())
+    # releases.update(releases_eap)
 
     result = []
     for code, meta in releases.items():

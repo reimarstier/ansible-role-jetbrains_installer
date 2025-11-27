@@ -3,7 +3,7 @@
 
 - name: "Extract meta data for tool {{ tool_config['name'] }}"
   set_fact:
-    tool_name: "{{ tool_config.name }}"
+    tool_name: "{{ tool_config['name'] }}"
     tool_info: "{{ jetbrains_releases | selectattr('name', 'equalto', tool_config['name']) | first }}"
 
 - name: Jetbrains tool definitions (version, download url, directory)

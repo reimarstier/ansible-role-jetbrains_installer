@@ -3,7 +3,7 @@
 
 - name: Lookup jetbrains releases
   set_fact:
-    jetbrains_releases: "{{ lookup('jetbrains_releases') }}"
+    jetbrains_releases: "{{ lookup('jetbrains_releases') | from_json }}"
 
 - name: Current jetbrains latest releases list
   debug: msg="{{ jetbrains_releases }}"

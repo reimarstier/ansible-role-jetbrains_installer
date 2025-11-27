@@ -25,14 +25,14 @@
   file:
     path: "{{ jetbrains_installer_dir }}/bin/"
     state: directory
-  when: jb_tool.binary
+  when: jb_tool.binary is defined
 
 - name: Create symlink for executable
   file:
     src: "{{ jetbrains_installer_dir }}/{{ jb_tool.dirname }}/bin/{{ jb_tool.binary }}"
     dest: "{{ jetbrains_installer_dir }}/bin/{{ jb_tool.link_name }}"
     state: "link"
-  when: jb_tool.binary
+  when: jb_tool.binary is defined
 
 - name: Create desktop file
   template:
